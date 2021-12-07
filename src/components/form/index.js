@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./form.scss";
 
 function Form(props) {
   const [reqData, setReqData] = useState({ method: "get" });
+  
+  useEffect(() => {
+    document.getElementById("get").style.background = "#ccc";
+    document.getElementById("post").style.background = "#ccc";
+    document.getElementById("delete").style.background = "#ccc";
+    document.getElementById("put").style.background = "#ccc";
+    let methodActive = document.getElementById(`${reqData.method}`);
+    methodActive.style.background = "#fff";
+  }, [reqData.method]);
 
   const methodHandler = (e) => {
     e.preventDefault();
