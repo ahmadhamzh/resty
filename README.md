@@ -93,7 +93,9 @@ const element = React.createElement(
    ```
 
 ## links 
-pull req link : https://github.com/ahmadhamzh/resty/pull/1 
+pull req link-lab26 : https://github.com/ahmadhamzh/resty/pull/1 
+pull req link-lab27 : https://github.com/ahmadhamzh/resty/pull/2
+pull req link-lab28 : https://github.com/ahmadhamzh/resty/pull/3
 deployed sandbox links : https://hk1q4.csb.app/
 deployed netlify link : https://ahmadhamzh-resty.netlify.app/
 sand box page: https://codesandbox.io/s/young-resonance-hk1q4?file=/src/index.js 
