@@ -99,6 +99,8 @@ pull req link-lab27 : https://github.com/ahmadhamzh/resty/pull/2
 
 pull req link-lab28 : https://github.com/ahmadhamzh/resty/pull/3
 
+pull req link lab29 : https://github.com/ahmadhamzh/resty/pull/4
+
 deployed sandbox links : https://hk1q4.csb.app/
 
 deployed netlify link : https://ahmadhamzh-resty.netlify.app/
