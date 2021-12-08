@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 
 import "./app.scss";
 
@@ -8,11 +8,40 @@ import Header from "./components/header/index";
 import Footer from "./components/footer/index";
 import Form from "./components/form/index";
 import Results from "./components/results/index";
-
+import History from "./components/history/history";
 const axios = require("axios");
+
+
+const initialState = {
+  data: null,
+  requestParams: {},
+  history: []
+};
+function setState(state = initialState, action) {
+  switch (action.name) {
+    case "resApi":
+      return {
+        ...state,
+        data: action.payload.res,
+        requestParams: action.payload.req
+      };
+    default:
+      return state;
+  }
+}
+
 function App() {
-  const [state, setState] = useState({ data: null, requestParams: {} });
+  const [state, dispatch] = useReducer(setState, initialState);
+
+  // const [state, setState] = useState({
+  //   data: null,
+  //   requestParams: {}
+  // });
+  // const [requestParams, setRequestParams] = useState({});
+
   const callApi = async (requestParams) => {
+    console.log(requestParams);
+    state.history.push(requestParams);
     let resApi;
     if (requestParams.method === "get") {
       resApi = await axios.get(requestParams.url);
@@ -20,11 +49,24 @@ function App() {
     if (requestParams.method === "delete") {
       resApi = await axios.delete(requestParams.url);
     }
-    if (resApi) {      
-      setState({ data : resApi, requestParams });
+    if (resApi) {
+      const action = {
+        name: "resApi",
+        payload: {
+          res: resApi,
+          req: requestParams
+        }
+      };
+      dispatch(action);
     } else {
-      setState({ data: "no data found", requestParams });
+      const action = {
+        name: "resApi",
+        payload: "no data found"
+      };
+      dispatch(action);
+      // setState({ data: "no data found", requestParams });
     }
+    console.log(state.history, "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
   };
 
   return (
@@ -33,6 +75,7 @@ function App() {
       <div>Request Method: {state.requestParams.method}</div>
       <div>URL: {state.requestParams.url}</div>
       <Form handleApiCall={callApi} />
+      <History handleApiCall={callApi} history={state.history} />
       <Results data={state.data} />
       <Footer />
     </React.Fragment>
